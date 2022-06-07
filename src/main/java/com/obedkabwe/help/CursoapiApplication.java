@@ -7,8 +7,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.obedkabwe.help.domain.Categoria;
+import com.obedkabwe.help.domain.Cidade;
+import com.obedkabwe.help.domain.Estado;
 import com.obedkabwe.help.domain.Produto;
 import com.obedkabwe.help.repositories.CategoriaRepository;
+import com.obedkabwe.help.repositories.CidadeRepository;
+import com.obedkabwe.help.repositories.EstadoRepository;
 import com.obedkabwe.help.repositories.ProdutoRepository;
 
 
@@ -20,6 +24,10 @@ public class CursoapiApplication implements CommandLineRunner   {
 	CategoriaRepository categoriaRepository;
 	@Autowired
 	ProdutoRepository produtoRepository;
+	@Autowired
+	EstadoRepository estadoRepository;
+	@Autowired
+	CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoapiApplication.class, args);
@@ -50,12 +58,18 @@ public class CursoapiApplication implements CommandLineRunner   {
 		
 		
 		
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "Sao Paulo");
 		
+		Cidade c1 = new Cidade(null, "Uberlandia");
+		Cidade c2 = new Cidade(null, "Sao Paulo");
+		Cidade c3 = new Cidade(null, "Campinas");
 		
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
 		
-		
-		
-		
+		estadoRepository.saveAll(Arrays.asList(est1,est2));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
 		
 		
