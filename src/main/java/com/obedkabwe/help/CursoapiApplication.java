@@ -1,4 +1,5 @@
 package com.obedkabwe.help;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.obedkabwe.help.domain.Categoria;
 import com.obedkabwe.help.domain.Cidade;
+import com.obedkabwe.help.domain.Cliente;
+import com.obedkabwe.help.domain.Endereco;
+import com.obedkabwe.help.domain.EnderecoRepository;
 import com.obedkabwe.help.domain.Estado;
 import com.obedkabwe.help.domain.Produto;
+import com.obedkabwe.help.domain.ennums.TipoCliente;
 import com.obedkabwe.help.repositories.CategoriaRepository;
 import com.obedkabwe.help.repositories.CidadeRepository;
+import com.obedkabwe.help.repositories.ClienteRepository;
 import com.obedkabwe.help.repositories.EstadoRepository;
 import com.obedkabwe.help.repositories.ProdutoRepository;
 
@@ -28,6 +34,10 @@ public class CursoapiApplication implements CommandLineRunner   {
 	EstadoRepository estadoRepository;
 	@Autowired
 	CidadeRepository cidadeRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
+	@Autowired
+	EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoapiApplication.class, args);
@@ -72,6 +82,18 @@ public class CursoapiApplication implements CommandLineRunner   {
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
 		
+		
+		Cliente cli1 = new Cliente(null, "Maria silva", "kabweobed@gmail.com", "283684794", TipoCliente.PESSOAFISICA);
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "22", "Apt 33", "jardim", "388483", cli1, c3);
+		Endereco e2 = new Endereco(null, "Avenida oberson", "145", "Apt 88", "paulista", "287654", cli1, c3);
+		
+		
+		cli1.getTelefones().addAll(Arrays.asList("254546657","898098"));
+		cli1.getEnderocos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 		
 		
 		

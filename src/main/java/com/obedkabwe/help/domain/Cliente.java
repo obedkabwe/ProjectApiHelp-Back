@@ -1,15 +1,28 @@
 package com.obedkabwe.help.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.obedkabwe.help.domain.ennums.TipoCliente;
 
-public class Cliente {
+@Entity
+public class Cliente implements Serializable{
+	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Integer id;
 	private String nome;
@@ -17,9 +30,11 @@ public class Cliente {
 	private String cpfOuCnpj;
 	private Integer  tipo; 
 	
+	@OneToMany(mappedBy = "cliente")
+	private List<Endereco> enderocos = new ArrayList<>();
 	
-	private List<Enderco> enderocos = new ArrayList<>();
-	
+	@ElementCollection
+	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
 
@@ -110,12 +125,12 @@ public class Cliente {
 	}
 
 
-	public List<Enderco> getEnderocos() {
+	public List<Endereco> getEnderocos() {
 		return enderocos;
 	}
 
 
-	public void setEnderocos(List<Enderco> enderocos) {
+	public void setEnderocos(List<Endereco> enderocos) {
 		this.enderocos = enderocos;
 	}
 
