@@ -13,6 +13,7 @@ import com.obedkabwe.help.domain.Cidade;
 import com.obedkabwe.help.domain.Cliente;
 import com.obedkabwe.help.domain.Endereco;
 import com.obedkabwe.help.domain.Estado;
+import com.obedkabwe.help.domain.ItemPedido;
 import com.obedkabwe.help.domain.Pagamento;
 import com.obedkabwe.help.domain.PagamentoComBoleto;
 import com.obedkabwe.help.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.obedkabwe.help.repositories.CidadeRepository;
 import com.obedkabwe.help.repositories.ClienteRepository;
 import com.obedkabwe.help.repositories.EnderecoRepository;
 import com.obedkabwe.help.repositories.EstadoRepository;
+import com.obedkabwe.help.repositories.ItemPedidoRepository;
 import com.obedkabwe.help.repositories.PagamentoRepository;
 import com.obedkabwe.help.repositories.PedidoRepository;
 import com.obedkabwe.help.repositories.ProdutoRepository;
@@ -36,21 +38,23 @@ public class CursoapiApplication implements CommandLineRunner   {
 	
 
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	@Autowired
-	ProdutoRepository produtoRepository;
+	private ProdutoRepository produtoRepository;
 	@Autowired
-	EstadoRepository estadoRepository;
+	private EstadoRepository estadoRepository;
 	@Autowired
-	CidadeRepository cidadeRepository;
+	private CidadeRepository cidadeRepository;
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	private EnderecoRepository enderecoRepository;
 	@Autowired
-	PedidoRepository pedidoRepository;
+	private PedidoRepository pedidoRepository;
 	@Autowired
-	PagamentoRepository pagamentoRepository;
+	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursoapiApplication.class, args);
@@ -133,7 +137,19 @@ public class CursoapiApplication implements CommandLineRunner   {
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
 		
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
 		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
 	}
 
