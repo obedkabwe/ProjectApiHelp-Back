@@ -45,9 +45,12 @@ public class ItemPedido implements Serializable{
 	}
 
 	
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
+	
+	@JsonIgnore
 	public Produto getProduto() {
 		return id.getProduto();
 		
