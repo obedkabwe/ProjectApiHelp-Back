@@ -28,6 +28,10 @@ public class CategoriaService {
 		return repository.save(obj);
 	}
 	
+	public Categoria update(Categoria obj) {
+		obj.setId(0);
+		return repository.save(obj);
+	}
 	
 	
 	
