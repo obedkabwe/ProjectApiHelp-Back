@@ -4,11 +4,15 @@ package com.obedkabwe.help.services;
 
 import java.util.Optional;
 
+import javax.persistence.Id;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.obedkabwe.help.domain.Categoria;
 import com.obedkabwe.help.repositories.CategoriaRepository;
+import com.obedkabwe.help.services.exception.DataIntegretyException;
 import com.obedkabwe.help.services.exception.ObjectNotFoundException;
 
 @Service
@@ -34,7 +38,14 @@ public class CategoriaService {
 	}
 	
 	
+	public void delete(Integer id) {
+		findById(id);
+		try {
+		repository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegretyException("No posiible to delete category who has a products");
+		}
 	
-	
-	
+	}
 }

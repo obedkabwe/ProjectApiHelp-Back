@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.obedkabwe.help.services.exception.DataIntegretyException;
 import com.obedkabwe.help.services.exception.ObjectNotFoundException;
 
 @ControllerAdvice
@@ -22,6 +23,12 @@ public class ResourceExceptionHandler {
 	
 	
 	
+	@ExceptionHandler(DataIntegretyException.class)
+	public ResponseEntity<StanderError> dataIntegerity(DataIntegretyException e , HttpServletRequest request){
+		
+		StanderError err = new StanderError(HttpStatus.BAD_REQUEST.value(),e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
 	
 	
 	
