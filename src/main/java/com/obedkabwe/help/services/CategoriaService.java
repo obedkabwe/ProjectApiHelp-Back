@@ -2,6 +2,7 @@ package com.obedkabwe.help.services;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.Id;
@@ -48,4 +49,17 @@ public class CategoriaService {
 		}
 	
 	}
+	
+	
+	
+	public List<Categoria> findAll(){
+		return repository.findAll();
+	}
+	
+	
+	
+	
+	
+	
+	
 }

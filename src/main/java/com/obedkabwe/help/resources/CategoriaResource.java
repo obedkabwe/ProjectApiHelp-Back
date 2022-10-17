@@ -1,6 +1,6 @@
 package com.obedkabwe.help.resources;
 import java.net.URI;
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
@@ -68,8 +68,12 @@ public class CategoriaResource {
 	}
 	
 	
-	
-	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Categoria>> findAll () {
+		 List<Categoria> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+		
+		}
 	
 	
 }
